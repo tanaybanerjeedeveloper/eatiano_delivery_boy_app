@@ -38,9 +38,14 @@ class OrderList extends StatelessWidget {
       child: ListView.builder(
         shrinkWrap: true,
         itemBuilder: (ctx, index) {
-          return OrderWidget();
+          return OrderWidget(
+            name: orders['data'][index]['name'],
+            type: orders['data'][index]['type'],
+            numberOfRatings: orders['data'][index]['numberOfRatings'],
+            rating: orders['data'][index]['rating'],
+          );
         },
-        itemCount: orders.length,
+        itemCount: orders['data'].length,
       ),
     );
   }

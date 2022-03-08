@@ -2,7 +2,17 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class OrderWidget extends StatelessWidget {
-  const OrderWidget({Key? key}) : super(key: key);
+  // const OrderWidget({Key? key}) : super(key: key);
+  final String name;
+  final String type;
+  final String rating;
+  final String numberOfRatings;
+
+  OrderWidget(
+      {required this.name,
+      required this.type,
+      required this.rating,
+      required this.numberOfRatings});
 
   @override
   Widget build(BuildContext context) {
@@ -10,6 +20,7 @@ class OrderWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
           vertical: mediaQuery.size.height * 0.002, horizontal: 0),
+      margin: EdgeInsets.only(bottom: mediaQuery.size.height * 0.01),
       decoration: BoxDecoration(
         color: Color(0XFF30353b),
         borderRadius: BorderRadius.circular(10.0),
@@ -75,12 +86,16 @@ class OrderWidget extends StatelessWidget {
           ],
         ),
         trailing: Container(
-          width: 50,
+          width: 60,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
+                  Text(
+                    '₹',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   Text(
                     '1109',
                     style: TextStyle(
