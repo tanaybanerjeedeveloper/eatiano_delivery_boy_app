@@ -30,7 +30,7 @@ class ProfileScreen extends StatelessWidget {
           //   ),
           // ),
           Container(
-            margin: EdgeInsets.symmetric(vertical: 0, horizontal: 150.0),
+            margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 155.0),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.red),
               borderRadius: BorderRadius.circular(10.0),
@@ -67,17 +67,29 @@ class ProfileScreen extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(left: width * 0.0),
               child: Text(
-                'Hi there Viv!',
+                'Alex Carter',
                 textScaleFactor: textScale,
                 style: const TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.bold),
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18.0),
               ),
             ),
           ),
           SizedBox(height: height * 0.003),
           Center(
             child: Padding(
-              padding: EdgeInsets.only(left: width * 0.04),
+              padding: EdgeInsets.only(left: width * 0.0),
+              child: Text(
+                'alex@gmail.com',
+                style: kSubTextStyle,
+              ),
+            ),
+          ),
+          SizedBox(height: height * 0.008),
+          Center(
+            child: Padding(
+              padding: EdgeInsets.only(left: width * 0.0),
               child: InkWell(
                 // onTap: () async {
                 //   // var res = await Provider.of<Network>.getData('/logout');
@@ -104,9 +116,12 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
           ),
+
           SizedBox(height: height * 0.09),
           // !clicked ? Details() : EditProfile()
-          ListItem(imageUrl: 'assets/images/bag.jpeg', caption: 'My Orders'),
+          ListItem(
+              imageUrl: 'assets/images/bag.jpeg',
+              caption: 'Order Delivered Details'),
           SizedBox(height: height * 0.02),
           ListItem(
             imageUrl: 'assets/images/bell.jpeg',
