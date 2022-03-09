@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'order_widget.dart';
 
-class OrderList extends StatelessWidget {
-  // const OrderList({Key? key}) : super(key: key);
-  final Map<String, dynamic> orders = {
+class PastOrderList extends StatelessWidget {
+  // const PastOrderList({Key? key}) : super(key: key);
+  final Map<String, dynamic> pastOrders = {
     "data": [
       {
         "id": 1,
@@ -28,14 +28,6 @@ class OrderList extends StatelessWidget {
         "rating": "4.9",
         "numberOfRatings": "124 Ratings",
         "image": "assets/images/davide-cantelli-jpkfc5_d-DI-unsplash.png"
-      },
-      {
-        "id": 4,
-        "name": "Pizza Rush Hour",
-        "type": "Italian",
-        "rating": "4.9",
-        "numberOfRatings": "124 Ratings",
-        "image": "assets/images/davide-cantelli-jpkfc5_d-DI-unsplash.png"
       }
     ]
   };
@@ -44,16 +36,16 @@ class OrderList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: ListView.builder(
-        shrinkWrap: true,
         itemBuilder: (ctx, index) {
           return OrderWidget(
-            name: orders['data'][index]['name'],
-            type: orders['data'][index]['type'],
-            numberOfRatings: orders['data'][index]['numberOfRatings'],
-            rating: orders['data'][index]['rating'],
+            name: pastOrders['data'][index]['name'],
+            type: pastOrders['data'][index]['type'],
+            numberOfRatings: pastOrders['data'][index]['numberOfRatings'],
+            rating: pastOrders['data'][index]['rating'],
           );
         },
-        itemCount: orders['data'].length,
+        shrinkWrap: true,
+        itemCount: pastOrders['data'].length,
       ),
     );
   }

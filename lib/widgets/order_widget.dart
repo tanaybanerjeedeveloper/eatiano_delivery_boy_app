@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
 
-class OrderWidget extends StatelessWidget {
+class OrderWidget extends StatefulWidget {
   // const OrderWidget({Key? key}) : super(key: key);
   final String name;
   final String type;
@@ -14,6 +14,11 @@ class OrderWidget extends StatelessWidget {
       required this.rating,
       required this.numberOfRatings});
 
+  @override
+  State<OrderWidget> createState() => _OrderWidgetState();
+}
+
+class _OrderWidgetState extends State<OrderWidget> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
