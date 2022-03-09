@@ -14,21 +14,21 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return Scaffold(
-      body: ListView(
-        children: [
-          Container(
-            height: mediaQuery.size.height * 1,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/Hand drawn.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-            padding: const EdgeInsets.symmetric(
-              vertical: 2,
-              horizontal: 10.0,
-            ),
-            child: Column(
+      body: Container(
+        height: mediaQuery.size.height * 1,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/Hand drawn.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        padding: const EdgeInsets.symmetric(
+          vertical: 2,
+          horizontal: 10.0,
+        ),
+        child: ListView(
+          children: [
+            Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -126,8 +126,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 PastOrderList(),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
