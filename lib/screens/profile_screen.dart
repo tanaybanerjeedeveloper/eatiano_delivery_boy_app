@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/list_item.dart';
+import './notifications_screen.dart';
+import './order_delivered_details_screen.dart';
 import '../constants.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -120,12 +122,15 @@ class ProfileScreen extends StatelessWidget {
           SizedBox(height: height * 0.09),
           // !clicked ? Details() : EditProfile()
           ListItem(
-              imageUrl: 'assets/images/bag.jpeg',
-              caption: 'Order Delivered Details'),
+            imageUrl: 'assets/images/bag.jpeg',
+            caption: 'Order Delivered Details',
+            route: OrderDeliveredDetailsScreen.id,
+          ),
           SizedBox(height: height * 0.02),
           ListItem(
             imageUrl: 'assets/images/bell.jpeg',
             caption: 'Notifications',
+            route: NotificationsScreen.id,
           ),
         ],
       ),

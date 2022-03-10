@@ -3,6 +3,7 @@ import '../constants.dart';
 
 class NotificationsScreen extends StatelessWidget {
   // const NotificationsScreen({Key? key}) : super(key: key);
+  static const id = 'notifications_screen';
 
   @override
   Widget build(BuildContext context) {

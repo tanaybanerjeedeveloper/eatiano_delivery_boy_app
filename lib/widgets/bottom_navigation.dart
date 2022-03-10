@@ -9,6 +9,7 @@ import '../screens/orders_screen.dart';
 import '../screens/profile_screen.dart';
 
 class BottomNavigation extends StatefulWidget {
+  static const id = 'bottom_navigation_bar';
   BottomNavigationState createState() => BottomNavigationState();
 }
 

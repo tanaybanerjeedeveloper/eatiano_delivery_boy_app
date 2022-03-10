@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 class ListItem extends StatelessWidget {
   final String imageUrl;
   final String caption;
-  // final String route;
+  final String route;
 
   ListItem({
     required this.imageUrl,
     required this.caption,
+    required this.route,
   });
 
   @override
@@ -19,6 +20,7 @@ class ListItem extends StatelessWidget {
     // TODO: implement build
     return InkWell(
       // onTap: () => Navigator.of(context).pushReplacementNamed(route),
+      onTap: () => Navigator.pushNamed(context, route),
       child: Stack(
         children: [
           Container(

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class OrderDeliveredDetailsScreen extends StatelessWidget {
-  const OrderDeliveredDetailsScreen({Key? key}) : super(key: key);
+  // const OrderDeliveredDetailsScreen({Key? key}) : super(key: key);
+  static const id = 'order_delivered_details';
 
   @override
   Widget build(BuildContext context) {

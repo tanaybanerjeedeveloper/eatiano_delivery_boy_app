@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './screens/home_screen.dart';
+import './screens/notifications_screen.dart';
+import './screens/order_delivered_details_screen.dart';
 import './widgets/bottom_navigation.dart';
 
 void main() {
@@ -28,7 +30,14 @@ class MyApp extends StatelessWidget {
               ),
             ),
       ),
-      home: BottomNavigation(),
+      // home: BottomNavigation(),
+      initialRoute: BottomNavigation.id,
+      routes: {
+        NotificationsScreen.id: (context) => NotificationsScreen(),
+        OrderDeliveredDetailsScreen.id: (context) =>
+            OrderDeliveredDetailsScreen(),
+        BottomNavigation.id: (context) => BottomNavigation(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }
