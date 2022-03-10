@@ -27,7 +27,7 @@ class _OrderWidgetState extends State<OrderWidget> {
           vertical: mediaQuery.size.height * 0.002, horizontal: 0),
       margin: EdgeInsets.only(bottom: mediaQuery.size.height * 0.01),
       decoration: BoxDecoration(
-        color: Color(0XFF30353b),
+        color: const Color(0XFF30353b),
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: ListTile(
@@ -97,7 +97,7 @@ class _OrderWidgetState extends State<OrderWidget> {
             children: [
               Row(
                 children: [
-                  Text(
+                  const Text(
                     '₹',
                     style: TextStyle(color: Colors.white),
                   ),
