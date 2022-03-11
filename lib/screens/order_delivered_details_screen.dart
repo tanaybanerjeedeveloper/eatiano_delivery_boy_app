@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/order_item.dart';
+// import '../widgets/order_item.dart';
+import '../widgets/order_item_list.dart';
 import '../constants.dart';
 
 class OrderDeliveredDetailsScreen extends StatelessWidget {
@@ -92,7 +93,9 @@ class OrderDeliveredDetailsScreen extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.white),
+                  color: Colors.white,
                 ),
+                child: OrderItemList(),
               ),
               Text('data'),
               Text('data'),
