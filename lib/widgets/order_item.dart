@@ -28,7 +28,8 @@ class OrderItem extends StatelessWidget {
           leading: Text(
             '$name x$count',
           ),
-          trailing: Text('₹ $price'),
+          // trailing: Text('₹ $price'),
+          trailing: buildRichText(),
         ),
         length == index + 1
             ? Container()
@@ -37,11 +38,31 @@ class OrderItem extends StatelessWidget {
                     EdgeInsets.symmetric(horizontal: width * 0.02, vertical: 0),
                 child: Divider(
                   height: height * 0.02,
-                  color: Colors.grey,
+                  color: const Color(0xffeaeaea),
                   thickness: 1,
                 ),
               )
       ],
+    );
+  }
+
+  Widget buildRichText() {
+    return RichText(
+      text: TextSpan(
+        children: [
+          const TextSpan(
+            text: '₹ ',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+          TextSpan(
+            text: price,
+            style: const TextStyle(
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

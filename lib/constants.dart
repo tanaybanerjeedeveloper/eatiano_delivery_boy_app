@@ -9,3 +9,8 @@ const kAppBarTitle = TextStyle(
   fontSize: 20.0,
   fontWeight: FontWeight.bold,
 );
+
+// const kTextStyleForOrderDeliverDetailsScreen = TextStyle(
+//   color: Colors.white,
+
+// );

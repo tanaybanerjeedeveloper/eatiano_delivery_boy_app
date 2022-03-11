@@ -97,12 +97,65 @@ class OrderDeliveredDetailsScreen extends StatelessWidget {
                 ),
                 child: OrderItemList(),
               ),
-              Text('data'),
-              Text('data'),
-              Text('data'),
+              SizedBox(
+                height: height * 0.05,
+              ),
+              buildDivider(context, height),
+              SizedBox(
+                height: height * 0.01,
+              ),
+              buildListTile(
+                context,
+                '125/1 Ripon street',
+                'Restaurant Address',
+                '700041',
+              ),
+              buildListTile(
+                context,
+                '489, Banerjee para road',
+                'Delivery Address',
+                '700041',
+              ),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              buildDivider(context, height),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget buildDivider(ctx, height) {
+    return Divider(
+      color: Theme.of(ctx).colorScheme.secondary,
+      thickness: 1.0,
+      height: height * 0.005,
+    );
+  }
+
+  Widget buildListTile(ctx, address, addressType, pincode) {
+    return ListTile(
+      leading: Text(
+        addressType,
+        style: const TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      trailing: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            address,
+            style: const TextStyle(color: Colors.white),
+          ),
+          Text(
+            pincode,
+            style: const TextStyle(color: Colors.white),
+          ),
+        ],
       ),
     );
   }
