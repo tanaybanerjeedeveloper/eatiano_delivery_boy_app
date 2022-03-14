@@ -69,61 +69,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 SizedBox(
                   height: mediaQuery.size.height * 0.01,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Order List',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    Row(
-                      children: const [
-                        Text(
-                          'View all',
-                          style: TextStyle(color: Colors.amber),
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: Colors.amber,
-                          size: 11.0,
-                        )
-                      ],
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 2.0,
-                ),
-                OrderList(),
-                SizedBox(
-                  height: mediaQuery.size.height * 0.03,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Past Order',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    Row(
-                      children: const [
-                        Text(
-                          'View all',
-                          style: TextStyle(color: Colors.amber),
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: Colors.amber,
-                          size: 11.0,
-                        )
-                      ],
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 2.0,
-                ),
-                PastOrderList(),
               ],
             ),
           ],
