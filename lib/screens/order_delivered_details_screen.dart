@@ -120,6 +120,45 @@ class OrderDeliveredDetailsScreen extends StatelessWidget {
                 height: height * 0.02,
               ),
               buildDivider(context, height),
+              SizedBox(
+                height: height * 0.001,
+              ),
+              ListTile(
+                leading: const Text(
+                  'Total',
+                  style: TextStyle(color: Colors.white),
+                ),
+                trailing: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          const TextSpan(
+                            text: '₹ ',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0,
+                                color: Colors.white),
+                          ),
+                          TextSpan(
+                            text: '1139',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontSize: 19.0,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      '(paid)',
+                      style: kSubTextStyle,
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -144,16 +183,26 @@ class OrderDeliveredDetailsScreen extends StatelessWidget {
         ),
       ),
       trailing: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            address,
-            style: const TextStyle(color: Colors.white),
-          ),
-          Text(
-            pincode,
-            style: const TextStyle(color: Colors.white),
+          Flexible(
+            fit: FlexFit.tight,
+            child: Container(
+              width: 130.0,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    address,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  Text(
+                    pincode,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),
