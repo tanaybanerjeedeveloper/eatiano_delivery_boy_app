@@ -10,6 +10,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var _status = false;
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -26,53 +27,65 @@ class _MyHomePageState extends State<MyHomePage> {
           vertical: 2,
           horizontal: 10.0,
         ),
-        child: ListView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(
-                  height: mediaQuery.size.height * 0.05,
+            SizedBox(
+              height: mediaQuery.size.height * 0.05,
+            ),
+            const Center(
+              child: Text(
+                'Welcome,Kevin!',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold,
                 ),
-                const Text(
-                  'Welcome,Kevin',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  height: mediaQuery.size.height * 0.02,
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 0, horizontal: 100.0),
-                  child: TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                    ),
+              ),
+            ),
+            SizedBox(
+              height: mediaQuery.size.height * 0.02,
+            ),
+            buildSwitch(context),
+            SizedBox(
+              height: mediaQuery.size.height * 0.03,
+            ),
+            _status == true
+                ? Center(
                     child: Text(
                       'Active',
                       style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
                           fontSize: 25.0,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black),
+                          fontWeight: FontWeight.bold),
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: mediaQuery.size.height * 0.01,
-                ),
-              ],
-            ),
+                  )
+                : const Center(
+                    child: Text(
+                      'Inactive',
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 25.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  )
           ],
         ),
+      ),
+    );
+  }
+
+  Widget buildSwitch(ctx) {
+    return Transform.scale(
+      scale: 2,
+      child: Switch.adaptive(
+        activeColor: Theme.of(context).colorScheme.secondary,
+        activeTrackColor: Color(0xffd8f3dc),
+        inactiveThumbColor: Colors.red,
+        inactiveTrackColor: Color(0xfffbb1bd),
+        value: _status,
+        onChanged: (value) => setState(() => _status = !_status),
       ),
     );
   }
