@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 //import '../painters/logInOutBorderPaint.dart';
 import 'log_in_screen.dart';
 import '../widgets/signup.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class Register extends StatefulWidget {
   static const id = 'Register';
@@ -9,6 +13,22 @@ class Register extends StatefulWidget {
 }
 
 class RegisterState extends State<Register> {
+  File? image;
+
+  Future pickImage() async {
+    print('image selected');
+    try {
+      final img = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (img == null) return;
+      final imgTemporary = File(img.path);
+      setState(() {
+        this.image = imgTemporary;
+      });
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -33,19 +53,25 @@ class RegisterState extends State<Register> {
               alignment: Alignment.center,
               child: Stack(
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.red, width: 5),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(100),
-                      ),
-                    ),
-                    child: ClipOval(
-                      child: Image.network(
-                        'https://upload.wikimedia.org/wikipedia/commons/5/5f/Alberto_conversi_profile_pic.jpg',
-                        width: 130,
-                        height: 130,
-                        fit: BoxFit.cover,
+                  CircleAvatar(
+                    radius: 82,
+                    backgroundColor: Colors.grey,
+                    child: CircleAvatar(
+                      radius: 80,
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: image != null
+                            ? Image.file(
+                                image!,
+                                // width: 150,
+                                // height: 150,
+                                fit: BoxFit.cover,
+                              )
+                            : const Icon(
+                                Icons.person,
+                                size: 80,
+                                color: Colors.grey,
+                              ),
                       ),
                     ),
                   ),
@@ -53,7 +79,7 @@ class RegisterState extends State<Register> {
                     bottom: 0,
                     right: 5,
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () => pickImage(),
                       icon: const Icon(
                         Icons.add_a_photo,
                         color: Colors.white,

@@ -41,6 +41,7 @@ dependencies:
   geolocator: ^8.2.0
   geocoding: ^2.0.2
   fluttertoast: ^8.0.9
+  image_picker: ^0.8.4+11
 
 dev_dependencies:
   flutter_test:
