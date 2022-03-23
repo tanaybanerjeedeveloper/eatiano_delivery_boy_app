@@ -53,26 +53,27 @@ class RegisterState extends State<Register> {
               alignment: Alignment.center,
               child: Stack(
                 children: [
-                  CircleAvatar(
-                    radius: 82,
-                    backgroundColor: Colors.grey,
-                    child: CircleAvatar(
-                      radius: 80,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: image != null
-                            ? Image.file(
-                                image!,
-                                // width: 150,
-                                // height: 150,
-                                fit: BoxFit.cover,
-                              )
-                            : const Icon(
-                                Icons.person,
-                                size: 80,
-                                color: Colors.grey,
-                              ),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey, width: 2),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(100),
                       ),
+                    ),
+                    child: ClipOval(
+                      child: image != null
+                          ? Image.file(
+                              image!,
+                              width: 170,
+                              height: 170,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.asset(
+                              'assets/images/profile.webp',
+                              width: 170,
+                              height: 170,
+                              fit: BoxFit.cover,
+                            ),
                     ),
                   ),
                   Positioned(
