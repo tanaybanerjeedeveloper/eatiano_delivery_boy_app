@@ -69,7 +69,7 @@ class RegisterState extends State<Register> {
               // padding: const EdgeInsets.fromLTRB(10, 60, 10, 10),
               padding: EdgeInsets.only(
                   left: width * 0.04,
-                  top: (height - statusBarPadding) * 0.06,
+                  top: (height - statusBarPadding) * 0.03,
                   right: width * 0.04,
                   bottom: (height - statusBarPadding) * 0.01),
               width: double.infinity,

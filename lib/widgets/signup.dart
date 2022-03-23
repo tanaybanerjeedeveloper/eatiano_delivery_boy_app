@@ -37,7 +37,7 @@ class SignUpFormState extends State<SignUpForm> {
 
     // TODO: implement build
     return Container(
-      padding: EdgeInsets.only(top: height * 0.05),
+      padding: EdgeInsets.only(top: height * 0.0001),
       // decoration: BoxDecoration(
       //     border: Border.all(color: const Color.fromRGBO(198, 241, 74, 1))),
       child: Column(
