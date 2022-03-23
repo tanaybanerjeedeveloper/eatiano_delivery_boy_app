@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 import '../widgets/order_list.dart';
 import 'past_orders_screen.dart';
 import '../constants.dart';
+import 'package:provider/provider.dart';
+import '../model/order/order_provider.dart';
 
-class OrdersScreen extends StatelessWidget {
+class OrdersScreen extends StatefulWidget {
+  @override
+  State<OrdersScreen> createState() => _OrdersScreenState();
+}
+
+class _OrdersScreenState extends State<OrdersScreen> {
   // const OrdersScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+    final oreders = Provider.of<OrderProvider>(context).getOrders;
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromRGBO(25, 29, 33, 1),
@@ -40,9 +48,12 @@ class OrdersScreen extends StatelessWidget {
                 SizedBox(
                   height: height * 0.02,
                 ),
-                OrderList(),
+                Container(
+                  height: height * 0.6,
+                  child: OrderList(),
+                ),
                 SizedBox(
-                  height: height * 0.001,
+                  height: height * 0.01,
                 ),
                 TextButton(
                   onPressed: () {
