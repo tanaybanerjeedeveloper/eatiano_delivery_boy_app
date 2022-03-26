@@ -19,6 +19,7 @@ class PastOrdersScreen extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         backgroundColor: const Color.fromRGBO(25, 29, 33, 1),
+        //backgroundColor: Colors.amber,
         elevation: 0,
         centerTitle: true,
         title: const Text(
@@ -26,52 +27,12 @@ class PastOrdersScreen extends StatelessWidget {
           style: kAppBarTitle,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(10.0),
-          height: height * 0.9,
-          child: Column(
-            children: [
-              SizedBox(
-                height: height * 0.05,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Past Order',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              PastOrderList(),
-              SizedBox(
-                height: height * 0.001,
-              ),
-              // TextButton(
-              //   onPressed: () {},
-              //   style: TextButton.styleFrom(
-              //     backgroundColor: Theme.of(context).colorScheme.secondary,
-              //     shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(15.0),
-              //     ),
-              //     padding: const EdgeInsets.symmetric(
-              //         vertical: 10, horizontal: 50.0),
-              //   ),
-              //   child: const Text(
-              //     'Past Orders',
-              //     style: TextStyle(
-              //         fontSize: 25.0,
-              //         fontWeight: FontWeight.w600,
-              //         color: Colors.black),
-              //   ),
-              // ),
-            ],
-          ),
-        ),
+      body: Container(
+        //padding: const EdgeInsets.all(10.0),
+        padding: EdgeInsets.only(left: 10.0, right: 10.0),
+        height: height * 0.89,
+        width: double.infinity,
+        child: PastOrderList(),
       ),
     );
   }

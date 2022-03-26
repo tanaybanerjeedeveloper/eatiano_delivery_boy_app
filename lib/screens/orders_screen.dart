@@ -33,9 +33,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                SizedBox(
-                  height: height * 0.05,
-                ),
+                // SizedBox(
+                //   height: height * 0.05,
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
