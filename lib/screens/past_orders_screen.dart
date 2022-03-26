@@ -27,8 +27,9 @@ class PastOrdersScreen extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Padding(
+        child: Container(
           padding: const EdgeInsets.all(10.0),
+          height: height * 0.9,
           child: Column(
             children: [
               SizedBox(

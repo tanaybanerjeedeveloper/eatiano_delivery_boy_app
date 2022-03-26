@@ -31,16 +31,18 @@ class _PastOrderListState extends State<PastOrderList> {
               color: Colors.red,
             ),
           )
-        : ListView.builder(
-            shrinkWrap: false,
-            itemBuilder: (ctx, index) {
-              return OrderWidget(
-                name: deliveredOrders[index]['restaurant_name'],
-                type: deliveredOrders[index]['status'],
-                price: deliveredOrders[index]['transaction_amount'],
-              );
-            },
-            itemCount: deliveredOrders.length,
+        : Expanded(
+            child: ListView.builder(
+              shrinkWrap: false,
+              itemBuilder: (ctx, index) {
+                return OrderWidget(
+                  name: deliveredOrders[index]['restaurant_name'],
+                  type: deliveredOrders[index]['status'],
+                  price: deliveredOrders[index]['transaction_amount'],
+                );
+              },
+              itemCount: deliveredOrders.length,
+            ),
           );
   }
 }
