@@ -1,52 +1,46 @@
 import 'package:flutter/material.dart';
 import 'order_widget.dart';
+import 'package:provider/provider.dart';
+import '../model/order/order_provider.dart';
 
-class PastOrderList extends StatelessWidget {
-  // const PastOrderList({Key? key}) : super(key: key);
-  final Map<String, dynamic> pastOrders = {
-    "data": [
-      {
-        "id": 1,
-        "name": "Peter Cat",
-        "type": "Continental",
-        "rating": "4.9",
-        "numberOfRatings": "124 Ratings",
-        "image": "assets/images/davide-cantelli-jpkfc5_d-DI-unsplash.png"
-      },
-      {
-        "id": 2,
-        "name": "Barista",
-        "type": "Coffee",
-        "rating": "4.9",
-        "numberOfRatings": "124 Ratings",
-        "image": "assets/images/allison-griffith-VCXk_bO97VQ-unsplash.png"
-      },
-      {
-        "id": 3,
-        "name": "Pizza Rush Hour",
-        "type": "Italian",
-        "rating": "4.9",
-        "numberOfRatings": "124 Ratings",
-        "image": "assets/images/davide-cantelli-jpkfc5_d-DI-unsplash.png"
-      }
-    ]
-  };
+class PastOrderList extends StatefulWidget {
+  @override
+  State<PastOrderList> createState() => _PastOrderListState();
+}
+
+class _PastOrderListState extends State<PastOrderList> {
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    Provider.of<OrderProvider>(context, listen: false).fetchData().then((_) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-        itemBuilder: (ctx, index) {
-          return OrderWidget(
-            name: pastOrders['data'][index]['name'],
-            type: pastOrders['data'][index]['type'],
-            numberOfRatings: pastOrders['data'][index]['numberOfRatings'],
-            rating: pastOrders['data'][index]['rating'],
+    final deliveredOrders =
+        Provider.of<OrderProvider>(context).getDeliveredOrders;
+    return _isLoading
+        ? const Center(
+            child: const CircularProgressIndicator(
+              color: Colors.red,
+            ),
+          )
+        : ListView.builder(
+            shrinkWrap: false,
+            itemBuilder: (ctx, index) {
+              return OrderWidget(
+                name: deliveredOrders[index]['restaurant_name'],
+                type: deliveredOrders[index]['status'],
+                price: deliveredOrders[index]['transaction_amount'],
+              );
+            },
+            itemCount: deliveredOrders.length,
           );
-        },
-        shrinkWrap: true,
-        itemCount: pastOrders['data'].length,
-      ),
-    );
   }
 }

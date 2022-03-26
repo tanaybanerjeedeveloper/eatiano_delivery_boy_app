@@ -31,95 +31,51 @@ class Orders {
 
 class Datum {
   Datum({
-    required this.deliveryboyStatusId,
-    required this.deliveryboyId,
-    required this.orderUniqueId,
-    required this.status,
     required this.orderId,
-    required this.userId,
-    required this.restaurantId,
-    required this.transactionId,
-    required this.totalAmount,
-    required this.buyingPrice,
+    required this.restaurantImage,
+    required this.restaurantName,
+    required this.restaurantRatingCount,
+    required this.status,
     required this.transactionAmount,
-    required this.marchentName,
-    required this.discountAmount,
-    required this.deliveryCharge,
-    required this.orderStatus,
-    required this.deliveryDate,
-    required this.createdAt,
-    required this.updatedAt,
   });
 
-  final int deliveryboyStatusId;
-  final int deliveryboyId;
-  final String orderUniqueId;
-  final Status? status;
   final int orderId;
-  final String userId;
-  final String restaurantId;
-  final String transactionId;
-  final String totalAmount;
-  final String buyingPrice;
+  final RestaurantImage? restaurantImage;
+  final RestaurantName? restaurantName;
+  final dynamic restaurantRatingCount;
+  final Status? status;
   final String transactionAmount;
-  final MarchentName? marchentName;
-  final String discountAmount;
-  final String deliveryCharge;
-  final OrderStatus? orderStatus;
-  final String deliveryDate;
-  final DateTime createdAt;
-  final DateTime updatedAt;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        deliveryboyStatusId: json["deliveryboy_status_id"],
-        deliveryboyId: json["deliveryboy_id"],
-        orderUniqueId: json["order_unique_id"],
-        status: statusValues.map[json["status"]],
         orderId: json["order_id"],
-        userId: json["user_id"],
-        restaurantId: json["restaurant_id"],
-        transactionId: json["transaction_id"],
-        totalAmount: json["total_amount"],
-        buyingPrice: json["buying_price"],
+        restaurantImage: restaurantImageValues.map[json["restaurant_image"]],
+        restaurantName: restaurantNameValues.map[json["restaurant_name"]],
+        restaurantRatingCount: json["restaurant_rating_count"],
+        status: statusValues.map[json["status"]],
         transactionAmount: json["transaction_amount"],
-        marchentName: marchentNameValues.map[json["marchent_name"]],
-        discountAmount: json["discount_amount"],
-        deliveryCharge: json["delivery_charge"],
-        orderStatus: orderStatusValues.map[json["order_status"]],
-        deliveryDate: json["delivery_date"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "deliveryboy_status_id": deliveryboyStatusId,
-        "deliveryboy_id": deliveryboyId,
-        "order_unique_id": orderUniqueId,
-        "status": statusValues.reverse![status],
         "order_id": orderId,
-        "user_id": userId,
-        "restaurant_id": restaurantId,
-        "transaction_id": transactionId,
-        "total_amount": totalAmount,
-        "buying_price": buyingPrice,
+        "restaurant_image": restaurantImageValues.reverse![restaurantImage],
+        "restaurant_name": restaurantNameValues.reverse![restaurantName],
+        "restaurant_rating_count": restaurantRatingCount,
+        "status": statusValues.reverse![status],
         "transaction_amount": transactionAmount,
-        "marchent_name": marchentNameValues.reverse![marchentName],
-        "discount_amount": discountAmount,
-        "delivery_charge": deliveryCharge,
-        "order_status": orderStatusValues.reverse![orderStatus],
-        "delivery_date": deliveryDate,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
       };
 }
 
-enum MarchentName { ABC }
+enum RestaurantImage { PUBLIC_ASSETS_RESTAURANT_6_X4_A_JL03_3630_JPG }
 
-final marchentNameValues = EnumValues({"abc": MarchentName.ABC});
+final restaurantImageValues = EnumValues({
+  "/public/assets/restaurant/6x4aJL03-36-30.jpg":
+      RestaurantImage.PUBLIC_ASSETS_RESTAURANT_6_X4_A_JL03_3630_JPG
+});
 
-enum OrderStatus { PLACED }
+enum RestaurantName { CITY_CLUB }
 
-final orderStatusValues = EnumValues({"Placed": OrderStatus.PLACED});
+final restaurantNameValues =
+    EnumValues({"City Club": RestaurantName.CITY_CLUB});
 
 enum Status { PICKUP, DELIVERED }
 

@@ -6,14 +6,13 @@ class OrderWidget extends StatefulWidget {
   // const OrderWidget({Key? key}) : super(key: key);
   final String name;
   final String type;
-  final String rating;
-  final String numberOfRatings;
+  final String price;
 
-  OrderWidget(
-      {required this.name,
-      required this.type,
-      required this.rating,
-      required this.numberOfRatings});
+  OrderWidget({
+    required this.name,
+    required this.type,
+    required this.price,
+  });
 
   @override
   State<OrderWidget> createState() => _OrderWidgetState();
@@ -38,7 +37,7 @@ class _OrderWidgetState extends State<OrderWidget> {
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: ListTile(
-          isThreeLine: true,
+          // isThreeLine: true,
           leading: ClipRRect(
             borderRadius: BorderRadius.circular(10.0),
             child: Container(
@@ -53,37 +52,15 @@ class _OrderWidgetState extends State<OrderWidget> {
             ),
           ),
           title: Text(
-            'King Burgers',
+            widget.name,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           subtitle: Column(
             children: [
               Row(
                 children: [
-                  Icon(
-                    Icons.star_rounded,
-                    color: Theme.of(context).primaryColor,
-                  ),
                   Text(
-                    '4.9',
-                    style: TextStyle(color: Theme.of(context).primaryColor),
-                  ),
-                  const SizedBox(
-                    width: 3.0,
-                  ),
-                  Text(
-                    '(124 ratings)',
-                    style: kSubTextStyle,
-                  ),
-                  const SizedBox(
-                    height: 5.0,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Burger',
+                    widget.type,
                     style: kSubTextStyle,
                   ),
                   SizedBox(
@@ -100,16 +77,17 @@ class _OrderWidgetState extends State<OrderWidget> {
           trailing: Container(
             width: 60,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
                     const Text(
-                      '₹',
+                      '₹ ',
                       style: TextStyle(color: Colors.white),
                     ),
                     Text(
-                      '1109',
+                      widget.price,
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 20,
@@ -118,21 +96,21 @@ class _OrderWidgetState extends State<OrderWidget> {
                     )
                   ],
                 ),
-                Text(
-                  'Paid',
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.secondary),
-                ),
-                SizedBox(
-                  height: 5.0,
-                ),
-                Text(
-                  'On the way',
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 10.0,
-                  ),
-                )
+                // Text(
+                //   'Paid',
+                //   style:
+                //       TextStyle(color: Theme.of(context).colorScheme.secondary),
+                // ),
+                // SizedBox(
+                //   height: 5.0,
+                // ),
+                // Text(
+                //   'On the way',
+                //   style: TextStyle(
+                //     color: Theme.of(context).primaryColor,
+                //     fontSize: 10.0,
+                //   ),
+                // )
               ],
             ),
           ),
