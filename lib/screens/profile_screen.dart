@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -49,7 +51,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  _submit(filePath) async {
+  Future<dynamic> _submit(filePath) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     String fileName = basename(filePath.path);
     var formData = FormData.fromMap({
@@ -70,6 +72,7 @@ class ProfileScreenState extends State<ProfileScreen> {
           'Accept': 'application/json'
         }));
     print('upload response: $response');
+    return response;
   }
 
   Future pickImage() async {
@@ -302,11 +305,37 @@ class ProfileScreenState extends State<ProfileScreen> {
                   )),
               SizedBox(height: height * 0.03),
               InkWell(
-                onTap: () {
-                  _submit(file);
+                onTap: () async {
+                  var response = await _submit(file);
+                  print('from onTap: $response');
+                  print('response.data: ${response.data}');
+                  print(response.data['status']);
+                  if (response.data['status'] == 'success') {
+                    final text = 'Profile updated successfully';
+                    var snackBar = SnackBar(
+                      behavior: SnackBarBehavior.floating,
+                      margin: EdgeInsets.only(bottom: 50.0),
+                      content: Text(
+                        text,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      backgroundColor: Colors.green,
+                    );
+
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
+                  // final text = response.data;
+                  // final snackBar = SnackBar(
+                  //   content: Text(
+                  //     text,
+                  //     style: TextStyle(color: Colors.white),
+                  //   ),
+                  //   backgroundColor: Colors.green,
+                  // );
                 },
                 child: Button('Submit'),
-              )
+              ),
+              SizedBox(height: height * 0.3),
             ],
           ),
         ),
