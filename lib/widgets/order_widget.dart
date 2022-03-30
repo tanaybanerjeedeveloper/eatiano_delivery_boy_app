@@ -7,11 +7,13 @@ class OrderWidget extends StatefulWidget {
   final String name;
   final String type;
   final String price;
+  final String image;
 
   OrderWidget({
     required this.name,
     required this.type,
     required this.price,
+    required this.image,
   });
 
   @override
@@ -41,14 +43,21 @@ class _OrderWidgetState extends State<OrderWidget> {
           leading: ClipRRect(
             borderRadius: BorderRadius.circular(10.0),
             child: Container(
+              width: 60,
+              height: 60,
               // margin: EdgeInsets.only(bottom: mediaQuery.size.height * 0.01),
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Theme.of(context).colorScheme.secondary,
-                  width: 2.0,
+                  width: 1.0,
                 ),
               ),
-              child: Image.asset('assets/images/food.jpeg'),
+              child: Image.network(
+                'https://achievexsolutions.in/current_work/eatiano${widget.image}',
+                fit: BoxFit.cover,
+                // width: 20,
+                // height: 20,
+              ),
             ),
           ),
           title: Text(

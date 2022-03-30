@@ -38,6 +38,7 @@ class _PastOrderListState extends State<PastOrderList> {
                 name: deliveredOrders[index]['restaurant_name'],
                 type: deliveredOrders[index]['status'],
                 price: deliveredOrders[index]['transaction_amount'],
+                image: deliveredOrders[index]['restaurant_image'],
               );
             },
             itemCount: deliveredOrders.length,

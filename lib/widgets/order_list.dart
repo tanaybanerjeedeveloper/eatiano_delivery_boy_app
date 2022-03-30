@@ -39,6 +39,7 @@ class _OrderListState extends State<OrderList> {
                 name: currentOrders[index]['restaurant_name'],
                 type: currentOrders[index]['status'],
                 price: currentOrders[index]['transaction_amount'],
+                image: currentOrders[index]['restaurant_image'],
                 // rating: orders['data'][index]['rate'],
               );
             },
