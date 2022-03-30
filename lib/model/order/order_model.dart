@@ -32,6 +32,7 @@ class Orders {
 class Datum {
   Datum({
     required this.orderId,
+    required this.orderUniqueId,
     required this.restaurantImage,
     required this.restaurantName,
     required this.restaurantRatingCount,
@@ -40,14 +41,16 @@ class Datum {
   });
 
   final int orderId;
+  final String orderUniqueId;
   final RestaurantImage? restaurantImage;
   final RestaurantName? restaurantName;
-  final dynamic restaurantRatingCount;
+  final String restaurantRatingCount;
   final Status? status;
   final String transactionAmount;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         orderId: json["order_id"],
+        orderUniqueId: json["order_unique_id"],
         restaurantImage: restaurantImageValues.map[json["restaurant_image"]],
         restaurantName: restaurantNameValues.map[json["restaurant_name"]],
         restaurantRatingCount: json["restaurant_rating_count"],
@@ -57,6 +60,7 @@ class Datum {
 
   Map<String, dynamic> toJson() => {
         "order_id": orderId,
+        "order_unique_id": orderUniqueId,
         "restaurant_image": restaurantImageValues.reverse![restaurantImage],
         "restaurant_name": restaurantNameValues.reverse![restaurantName],
         "restaurant_rating_count": restaurantRatingCount,

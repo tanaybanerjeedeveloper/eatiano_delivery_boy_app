@@ -36,6 +36,7 @@ class _OrderListState extends State<OrderList> {
             shrinkWrap: false,
             itemBuilder: (ctx, index) {
               return OrderWidget(
+                id: currentOrders[index]['order_unique_id'],
                 name: currentOrders[index]['restaurant_name'],
                 type: currentOrders[index]['status'],
                 price: currentOrders[index]['transaction_amount'],

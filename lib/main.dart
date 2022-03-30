@@ -47,8 +47,8 @@ class MyApp extends StatelessWidget {
           initialRoute: LogIn.id,
           routes: {
             NotificationsScreen.id: (context) => NotificationsScreen(),
-            OrderDeliveredDetailsScreen.id: (context) =>
-                OrderDeliveredDetailsScreen(),
+            // OrderDeliveredDetailsScreen.id: (context) =>
+            //     OrderDeliveredDetailsScreen(),
             BottomNavigation.id: (context) => BottomNavigation(),
             LogIn.id: (context) => LogIn(),
             Register.id: (context) => Register(),

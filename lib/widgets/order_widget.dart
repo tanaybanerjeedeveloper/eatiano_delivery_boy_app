@@ -8,12 +8,14 @@ class OrderWidget extends StatefulWidget {
   final String type;
   final String price;
   final String image;
+  final String id;
 
   OrderWidget({
     required this.name,
     required this.type,
     required this.price,
     required this.image,
+    required this.id,
   });
 
   @override
@@ -27,7 +29,8 @@ class _OrderWidgetState extends State<OrderWidget> {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute<void>(
-          builder: (BuildContext context) => OrderDeliveredDetailsScreen(),
+          builder: (BuildContext context) =>
+              OrderDeliveredDetailsScreen(widget.id),
         ),
       ),
       child: Container(
@@ -49,7 +52,7 @@ class _OrderWidgetState extends State<OrderWidget> {
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Theme.of(context).colorScheme.secondary,
-                  width: 1.0,
+                  // width: 3.1,
                 ),
               ),
               child: Image.network(
@@ -93,7 +96,10 @@ class _OrderWidgetState extends State<OrderWidget> {
                   children: [
                     const Text(
                       '₹ ',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0),
                     ),
                     Text(
                       widget.price,

@@ -35,6 +35,7 @@ class _PastOrderListState extends State<PastOrderList> {
             shrinkWrap: false,
             itemBuilder: (ctx, index) {
               return OrderWidget(
+                id: deliveredOrders[index]['order_unique_id'],
                 name: deliveredOrders[index]['restaurant_name'],
                 type: deliveredOrders[index]['status'],
                 price: deliveredOrders[index]['transaction_amount'],

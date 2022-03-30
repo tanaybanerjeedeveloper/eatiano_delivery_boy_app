@@ -2,10 +2,50 @@ import 'package:flutter/material.dart';
 // import '../widgets/order_item.dart';
 import '../widgets/order_item_list.dart';
 import '../constants.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-class OrderDeliveredDetailsScreen extends StatelessWidget {
+class OrderDeliveredDetailsScreen extends StatefulWidget {
   // const OrderDeliveredDetailsScreen({Key? key}) : super(key: key);
+  String orderId;
   static const id = 'order_delivered_details';
+
+  OrderDeliveredDetailsScreen(this.orderId);
+
+  @override
+  State<OrderDeliveredDetailsScreen> createState() =>
+      _OrderDeliveredDetailsScreenState();
+}
+
+class _OrderDeliveredDetailsScreenState
+    extends State<OrderDeliveredDetailsScreen> {
+  var _isLoading = true;
+  late String orderId = widget.orderId;
+
+  @override
+  void initState() {
+    super.initState();
+    _getOrderDetails(widget.orderId);
+  }
+
+  Future<void> _getOrderDetails(String orderId) async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var response = await http.get(
+        Uri.parse(
+            'https://achievexsolutions.in/current_work/eatiano/api/delivery/delivery/$orderId'),
+        headers: {
+          'Authorization': 'Bearer ${localStorage.getString('token')}',
+          'Accept': 'application/json'
+        });
+    if (response.statusCode == 200) {
+      var data = response.body;
+      print('data-one: ${jsonDecode(data)}');
+      // return jsonDecode(data);
+    } else {
+      print(response.statusCode);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
