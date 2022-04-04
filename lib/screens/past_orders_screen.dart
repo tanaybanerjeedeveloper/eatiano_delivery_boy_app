@@ -23,7 +23,7 @@ class PastOrdersScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         title: const Text(
-          'Past Orders',
+          'Delivered Orders',
           style: kAppBarTitle,
         ),
       ),

@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       ],
       builder: (context, child) {
         return MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Eatiano Delivery app',
           theme: ThemeData(
             scaffoldBackgroundColor: const Color.fromRGBO(25, 29, 33, 1),
             primaryColor: const Color.fromRGBO(252, 17, 17, 1),

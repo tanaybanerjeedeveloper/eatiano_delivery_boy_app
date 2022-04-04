@@ -66,15 +66,15 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   style: TextButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
+                      borderRadius: BorderRadius.circular(5.0),
                     ),
                     padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 50.0),
+                        vertical: 10, horizontal: 40.0),
                   ),
                   child: const Text(
-                    'Past Orders',
+                    'Delivered Orders',
                     style: TextStyle(
-                        fontSize: 25.0,
+                        fontSize: 15.0,
                         fontWeight: FontWeight.w600,
                         color: Colors.black),
                   ),

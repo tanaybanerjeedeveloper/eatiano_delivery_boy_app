@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../../model/network_utils/authentication.dart';
 import '../../model/location/location.dart';
 import 'bottom_navigation.dart';
+import '../screens/profile_screen.dart';
 
 class SignInForm extends StatefulWidget {
   @override
@@ -195,7 +196,17 @@ class SignInFormState extends State<SignInForm> {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       // localStorage.setString('token', json.encode(body['access_token']));
       localStorage.setString('token', body['access_token']);
-      Navigator.of(context).pushReplacementNamed(BottomNavigation.id);
+      print('status: ${body['status']}');
+      if (body['status'] == 'Approved') {
+        Navigator.of(context).pushReplacementNamed(BottomNavigation.id);
+      } else {
+        Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (BuildContext context) => ProfileScreen(),
+          ),
+        );
+      }
+
       Provider.of<Network>(context, listen: false)
           .getToken(); //This is where I access the token from
     }
