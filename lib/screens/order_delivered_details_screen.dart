@@ -9,9 +9,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 class OrderDeliveredDetailsScreen extends StatefulWidget {
   // const OrderDeliveredDetailsScreen({Key? key}) : super(key: key);
   String orderId;
+  String restaurantName;
+  String restaurantImg;
   static const id = 'order_delivered_details';
 
-  OrderDeliveredDetailsScreen(this.orderId);
+  OrderDeliveredDetailsScreen(
+      {required this.orderId,
+      required this.restaurantImg,
+      required this.restaurantName});
 
   @override
   State<OrderDeliveredDetailsScreen> createState() =>
@@ -21,15 +26,33 @@ class OrderDeliveredDetailsScreen extends StatefulWidget {
 class _OrderDeliveredDetailsScreenState
     extends State<OrderDeliveredDetailsScreen> {
   var _isLoading = true;
+  var orderItemList = [];
+  double _sum = 0.0;
+  late double _totalPrice;
   late String orderId = widget.orderId;
 
   @override
   void initState() {
     super.initState();
-    _getOrderDetails(widget.orderId);
+    _getOrderItemList();
   }
 
-  Future<void> _getOrderDetails(String orderId) async {
+  Future _getOrderItemList() async {
+    orderItemList = await _getOrderDetails(widget.orderId);
+    _totalPrice = _getTotalPrice(orderItemList);
+    print(_totalPrice);
+  }
+
+  double _getTotalPrice(List orderItemList) {
+    for (var i = 0; i < orderItemList.length; i++) {
+      _sum = _sum +
+          double.parse(orderItemList[i]['product_price']!) *
+              double.parse(orderItemList[i]['quantity']);
+    }
+    return _sum;
+  }
+
+  Future<dynamic> _getOrderDetails(String orderId) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var response = await http.get(
         Uri.parse(
@@ -40,7 +63,18 @@ class _OrderDeliveredDetailsScreenState
         });
     if (response.statusCode == 200) {
       var data = response.body;
-      print('data-one: ${jsonDecode(data)}');
+      setState(() {
+        _isLoading = false;
+      });
+      // print('data-one: ${jsonDecode(data)}');
+      var decodedData = jsonDecode(data);
+      // print('decodedData: $decodedData');
+      // print('decodedData-type: ${decodedData.runtimeType}');
+      // print(decodedData['status']);
+      print(decodedData['data']);
+      print(decodedData['data'].runtimeType);
+      return decodedData['data'];
+
       // return jsonDecode(data);
     } else {
       print(response.statusCode);
@@ -68,141 +102,121 @@ class _OrderDeliveredDetailsScreenState
           style: kAppBarTitle,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
-          child: Column(
-            children: [
-              SizedBox(
-                height: height * 0.04,
-              ),
-              ListTile(
-                // isThreeLine: true,
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: Container(
-                    // margin: EdgeInsets.only(bottom: mediaQuery.size.height * 0.01),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Theme.of(context).colorScheme.secondary,
-                        width: 2.0,
-                      ),
-                    ),
-                    child: Image.asset('assets/images/food.jpeg'),
-                  ),
-                ),
-                title: Text(
-                  'King Burgers Restro',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-                subtitle: Column(
+      body: (_isLoading == true)
+          ? const Center(
+              child: CircularProgressIndicator(color: Colors.red),
+            )
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 10.0, horizontal: 14.0),
+                child: Column(
                   children: [
                     SizedBox(
-                      height: width * 0.02,
+                      height: height * 0.04,
                     ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.star_rounded,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        Text(
-                          '4.9',
-                          style:
-                              TextStyle(color: Theme.of(context).primaryColor),
-                        ),
-                        const SizedBox(
-                          width: 3.0,
-                        ),
-                        Text(
-                          '(124 ratings)',
-                          style: kSubTextStyle,
-                        ),
-                        const SizedBox(
-                          height: 5.0,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white),
-                  color: Colors.white,
-                ),
-                child: OrderItemList(),
-              ),
-              SizedBox(
-                height: height * 0.05,
-              ),
-              buildDivider(context, height),
-              SizedBox(
-                height: height * 0.01,
-              ),
-              buildListTile(
-                context,
-                '125/1 Ripon street',
-                'Restaurant Address',
-                '700041',
-              ),
-              buildListTile(
-                context,
-                '489, Banerjee para road',
-                'Delivery Address',
-                '700041',
-              ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              buildDivider(context, height),
-              SizedBox(
-                height: height * 0.001,
-              ),
-              ListTile(
-                leading: const Text(
-                  'Total',
-                  style: TextStyle(color: Colors.white),
-                ),
-                trailing: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          const TextSpan(
-                            text: '₹ ',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0,
-                                color: Colors.white),
-                          ),
-                          TextSpan(
-                            text: '1139',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 19.0,
-                              color: Colors.red,
+                    ListTile(
+                      // isThreeLine: true,
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Container(
+                          width: 50,
+                          height: 50,
+                          // margin: EdgeInsets.only(bottom: mediaQuery.size.height * 0.01),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Theme.of(context).colorScheme.secondary,
+                              width: 2.5,
                             ),
                           ),
+                          child: Image.network(
+                            'https://achievexsolutions.in/current_work/eatiano${widget.restaurantImg}',
+                            fit: BoxFit.cover,
+                            width: 50,
+                            height: 50,
+                          ),
+                        ),
+                      ),
+                      title: Text(
+                        widget.restaurantName,
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SizedBox(
+                      height: height * 0.02,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white),
+                        color: Colors.white,
+                      ),
+                      child: OrderItemList(orderItemList),
+                    ),
+                    SizedBox(
+                      height: height * 0.05,
+                    ),
+                    buildDivider(context, height),
+                    SizedBox(
+                      height: height * 0.01,
+                    ),
+                    buildListTile(
+                      context,
+                      orderItemList[0]['restaurant_address'],
+                      'Restaurant Address',
+                    ),
+                    buildListTile(
+                      context,
+                      '${orderItemList[0]['area']} ${orderItemList[0]['city']} ${orderItemList[0]['state']} ${orderItemList[0]['pincode']}',
+                      'Delivery Address',
+                    ),
+                    SizedBox(
+                      height: height * 0.02,
+                    ),
+                    buildDivider(context, height),
+                    SizedBox(
+                      height: height * 0.001,
+                    ),
+                    ListTile(
+                      leading: const Text(
+                        'Total',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      trailing: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                const TextSpan(
+                                  text: '₹ ',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20.0,
+                                      color: Colors.white),
+                                ),
+                                TextSpan(
+                                  text: _totalPrice.toStringAsFixed(1),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 19.0,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          // Text(
+                          //   '(paid)',
+                          //   style: kSubTextStyle,
+                          // )
                         ],
                       ),
                     ),
-                    Text(
-                      '(paid)',
-                      style: kSubTextStyle,
-                    )
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 
@@ -214,7 +228,7 @@ class _OrderDeliveredDetailsScreenState
     );
   }
 
-  Widget buildListTile(ctx, address, addressType, pincode) {
+  Widget buildListTile(ctx, address, addressType) {
     return ListTile(
       leading: Text(
         addressType,
@@ -222,29 +236,14 @@ class _OrderDeliveredDetailsScreenState
           color: Colors.white,
         ),
       ),
-      trailing: Column(
-        children: [
-          Flexible(
-            fit: FlexFit.tight,
-            child: Container(
-              width: 130.0,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    address,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  Text(
-                    pincode,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
-            ),
+      trailing: Expanded(
+        child: Container(
+          width: 200.0,
+          child: Text(
+            address,
+            style: const TextStyle(color: Colors.white),
           ),
-        ],
+        ),
       ),
     );
   }

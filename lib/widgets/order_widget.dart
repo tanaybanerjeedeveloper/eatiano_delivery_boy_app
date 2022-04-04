@@ -29,8 +29,11 @@ class _OrderWidgetState extends State<OrderWidget> {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute<void>(
-          builder: (BuildContext context) =>
-              OrderDeliveredDetailsScreen(widget.id),
+          builder: (BuildContext context) => OrderDeliveredDetailsScreen(
+            orderId: widget.id,
+            restaurantImg: widget.image,
+            restaurantName: widget.name,
+          ),
         ),
       ),
       child: Container(

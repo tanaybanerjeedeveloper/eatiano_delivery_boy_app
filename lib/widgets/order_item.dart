@@ -29,7 +29,7 @@ class OrderItem extends StatelessWidget {
             '$name x$count',
           ),
           // trailing: Text('₹ $price'),
-          trailing: buildRichText(),
+          trailing: buildRichText(double.parse(price) * double.parse(count)),
         ),
         length == index + 1
             ? Container()
@@ -46,7 +46,7 @@ class OrderItem extends StatelessWidget {
     );
   }
 
-  Widget buildRichText() {
+  Widget buildRichText(double price) {
     return RichText(
       text: TextSpan(
         children: [
@@ -55,7 +55,7 @@ class OrderItem extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
           ),
           TextSpan(
-            text: price,
+            text: price.toStringAsFixed(1),
             style: const TextStyle(
               fontWeight: FontWeight.w600,
               color: Colors.black,
