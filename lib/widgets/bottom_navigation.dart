@@ -7,6 +7,7 @@ import '../screens/call_screen.dart';
 import '../screens/home_screen.dart';
 import '../screens/orders_screen.dart';
 import '../screens/profile_screen.dart';
+import '../screens/profile_screen_neo.dart';
 
 class BottomNavigation extends StatefulWidget {
   static const id = 'bottom_navigation_bar';
@@ -21,6 +22,7 @@ class BottomNavigationState extends State<BottomNavigation> {
     CallScreen(),
     MyHomePage(),
     ProfileScreen(),
+    //ProfileScreenNeo(),
     MoreScreen()
   ];
 

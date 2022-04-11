@@ -1,4 +1,5 @@
 import 'package:etiano_delivery_app/model/location/location.dart';
+import 'package:etiano_delivery_app/user_preferences.dart';
 import 'package:flutter/material.dart';
 import './screens/home_screen.dart';
 import './screens/notifications_screen.dart';
@@ -9,8 +10,15 @@ import './screens/register_screen.dart';
 import 'package:provider/provider.dart';
 import './model/network_utils/authentication.dart';
 import './model/order/order_provider.dart';
+import './utils/user_shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await UserSharedPreferences.init();
+
+  await UserPreferences.init();
+
   runApp(const MyApp());
 }
 

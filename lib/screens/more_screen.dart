@@ -1,9 +1,11 @@
+import 'package:etiano_delivery_app/map_utils.dart';
 import 'package:flutter/material.dart';
 // import '../widgets/more/cart.dart';
 // import '../widgets/more/notifyBell.dart';
 // import '../widgets/more/listItem.dart';
 import '../widgets/list_item.dart';
 import '../constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MoreScreen extends StatelessWidget {
   @override
@@ -24,67 +26,37 @@ class MoreScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-        SizedBox(
-          height: height * 0.05,
+      body: Container(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).colorScheme.secondary,
+                ),
+                onPressed: () {
+                  MapUtils.openMap(22.571039, 88.420274);
+                },
+                child: const Text(
+                  'Restaurant location',
+                  style: TextStyle(color: Colors.black),
+                )),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).colorScheme.secondary,
+                ),
+                onPressed: () {
+                  MapUtils.openMap(22.623382, 88.443866);
+                },
+                child: const Text(
+                  'Customer location',
+                  style: TextStyle(color: Colors.black),
+                ))
+          ],
         ),
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 155.0),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.red),
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            child: Image.asset('assets/images/boy.jpeg'),
-          ),
-        ),
-        SizedBox(height: height * 0.01),
-
-        // SizedBox(height: height * 0.2),
-        Center(
-          child: Padding(
-            padding: EdgeInsets.only(left: width * 0.0),
-            child: Text(
-              'Alex Carter',
-              textScaleFactor: textScale,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18.0),
-            ),
-          ),
-        ),
-        SizedBox(height: height * 0.003),
-        Center(
-          child: Padding(
-            padding: EdgeInsets.only(left: width * 0.0),
-            child: Text(
-              'alex@gmail.com',
-              style: kSubTextStyle,
-            ),
-          ),
-        ),
-        SizedBox(height: height * 0.008),
-        Center(
-          child: Padding(
-            padding: EdgeInsets.only(left: width * 0.0),
-            child: InkWell(
-              child: Text(
-                'Edit',
-                textScaleFactor: textScale,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15),
-              ),
-            ),
-          ),
-        ),
-
-        SizedBox(height: height * 0.09),
-        // !clicked ? Details() : EditProfile()
-      ]),
+      ),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/order_list.dart';
-import '../widgets/past_order_list.dart';
+import '../services/networking_service.dart';
+import '../utils/user_shared_preferences.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -10,7 +10,46 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var _status = false;
+  // var _status = false;
+  // var _statusCode = 0;
+  var _status;
+  var _statusCode;
+  late NetworkingService _networkingService;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _status = UserSharedPreferences.getStatus() ?? false;
+    _statusCode = UserSharedPreferences.getStatusCode() ?? 0;
+  }
+
+  Future<dynamic> _notifyStatus(statusCode) async {
+    _networkingService = NetworkingService(
+        'https://achievexsolutions.in/current_work/eatiano/api/delivery/status/$statusCode');
+    var response = await _networkingService.getData();
+    print('response from switch: $response');
+  }
+
+  _onChanged() async {
+    if (_statusCode == 0) {
+      setState(() {
+        _statusCode = 1;
+      });
+      await UserSharedPreferences.setStatusCode(_statusCode);
+    } else {
+      setState(() {
+        _statusCode = 0;
+      });
+      await UserSharedPreferences.setStatusCode(_statusCode);
+    }
+    setState(() {
+      _status = !_status;
+    });
+    await UserSharedPreferences.setStatus(_status);
+    return _statusCode;
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -39,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Welcome,Kevin!',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 30.0,
+                  fontSize: 25.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -51,13 +90,13 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               height: mediaQuery.size.height * 0.03,
             ),
-            _status == true
+            (_statusCode == 1 && _status == true)
                 ? Center(
                     child: Text(
                       'Active',
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.secondary,
-                          fontSize: 25.0,
+                          fontSize: 20.0,
                           fontWeight: FontWeight.bold),
                     ),
                   )
@@ -66,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       'Inactive',
                       style: TextStyle(
                           color: Colors.red,
-                          fontSize: 25.0,
+                          fontSize: 20.0,
                           fontWeight: FontWeight.bold),
                     ),
                   )
@@ -78,14 +117,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget buildSwitch(ctx) {
     return Transform.scale(
-      scale: 2,
+      scale: 1.3,
       child: Switch.adaptive(
         activeColor: Theme.of(context).colorScheme.secondary,
         activeTrackColor: Color(0xffd8f3dc),
         inactiveThumbColor: Colors.red,
         inactiveTrackColor: Color(0xfffbb1bd),
         value: _status,
-        onChanged: (value) => setState(() => _status = !_status),
+        onChanged: (value) async {
+          // setState(() {
+          //   _status = !_status;
+          // });
+          var _statusCode = await _onChanged();
+          print(_statusCode);
+          _notifyStatus(_statusCode);
+        },
       ),
     );
   }
