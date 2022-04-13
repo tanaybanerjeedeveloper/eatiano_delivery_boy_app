@@ -1,8 +1,14 @@
+import 'dart:convert';
+
 import 'package:etiano_delivery_app/map_utils.dart';
+import 'package:etiano_delivery_app/screens/log_in_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import '../widgets/more/cart.dart';
 // import '../widgets/more/notifyBell.dart';
 // import '../widgets/more/listItem.dart';
+import '../model/network_utils/authentication.dart';
 import '../widgets/list_item.dart';
 import '../constants.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -53,7 +59,23 @@ class MoreScreen extends StatelessWidget {
                 child: const Text(
                   'Customer location',
                   style: TextStyle(color: Colors.black),
-                ))
+                )),
+            ElevatedButton(
+                onPressed: () async {
+                  var res = await Provider.of<Network>(context, listen: false)
+                      .getData('api/auth/logout');
+                  var body = json.decode(res.body);
+                  // if (body['success']) {
+                  SharedPreferences localStorage =
+                      await SharedPreferences.getInstance();
+                  // localStorage.remove('user');
+                  localStorage
+                      .setString('token', '')
+                      .then((_) => Navigator.of(context).pushNamed(LogIn.id));
+                  localStorage.clear();
+                  print('Token Value ${localStorage.getString('token')}');
+                },
+                child: Text('Log Out')),
           ],
         ),
       ),

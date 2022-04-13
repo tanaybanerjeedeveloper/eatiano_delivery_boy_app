@@ -46,6 +46,7 @@ class LocationProvider with ChangeNotifier {
 
   // ignore: non_constant_identifier_names
   Future<void> GetAddressFromLatLong(Position position) async {
+    print('lat: ${position.latitude}');
     List<Placemark> placemarks =
         await placemarkFromCoordinates(position.latitude, position.longitude);
     print(placemarks);

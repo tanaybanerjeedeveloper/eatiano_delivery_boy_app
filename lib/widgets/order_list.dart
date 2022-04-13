@@ -26,6 +26,8 @@ class _OrderListState extends State<OrderList> {
   Widget build(BuildContext context) {
     //final orders = Provider.of<OrderProvider>(context).getOrders;
     final currentOrders = Provider.of<OrderProvider>(context).getCurrentOrders;
+    final stream = Stream.fromIterable(currentOrders);
+    print('stream: $stream');
     return _isLoading
         ? const Center(
             child: const CircularProgressIndicator(
@@ -46,5 +48,18 @@ class _OrderListState extends State<OrderList> {
             },
             itemCount: currentOrders.length,
           );
+    // : StreamBuilder(
+    //     stream: stream,
+    //     builder: (_, snapShot) {
+    //       if (snapShot.hasData) {
+    //         print('snapshot: $snapShot');
+    //         return Text('snapshot');
+    //       } else if (snapShot.hasError) {
+    //         return Text(snapShot.error.toString());
+    //       } else {
+    //         return Text('loading');
+    //       }
+    //     },
+    //   );
   }
 }

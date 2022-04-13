@@ -7,6 +7,8 @@ class OrderItem extends StatelessWidget {
   final String price;
   final int length;
   final int index;
+  // final String lat;
+  // final String long;
   // final bool length;
 
   OrderItem({
@@ -15,6 +17,8 @@ class OrderItem extends StatelessWidget {
     required this.price,
     required this.index,
     required this.length,
+    // required this.lat,
+    // required this.long,
     // required this.length
   });
 

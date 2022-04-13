@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:etiano_delivery_app/model/location/location.dart';
 import 'package:etiano_delivery_app/user_preferences.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ import 'package:provider/provider.dart';
 import './model/network_utils/authentication.dart';
 import './model/order/order_provider.dart';
 import './utils/user_shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,15 +22,40 @@ void main() async {
 
   await UserPreferences.init();
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  // const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+  var isAuth = false;
+
+  @override
+  void initState() {
+    _checkIfLoggedIn();
+    super.initState();
+  }
+
+  void _checkIfLoggedIn() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var token = localStorage.getString('token');
+    print(token);
+    if (token != null) {
+      setState(() {
+        isAuth = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    HttpOverrides.global = MyHttpOverrides();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => Network()),
@@ -51,8 +79,8 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
           ),
-          // home: BottomNavigation(),
-          initialRoute: LogIn.id,
+          home: isAuth ? BottomNavigation() : LogIn(),
+          //initialRoute: isAuth ? BottomNavigation.id : LogIn.id,
           routes: {
             NotificationsScreen.id: (context) => NotificationsScreen(),
             // OrderDeliveredDetailsScreen.id: (context) =>
@@ -65,5 +93,14 @@ class MyApp extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

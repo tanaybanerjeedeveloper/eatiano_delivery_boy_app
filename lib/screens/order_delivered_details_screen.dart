@@ -5,6 +5,7 @@ import '../constants.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:etiano_delivery_app/map_utils.dart';
 
 class OrderDeliveredDetailsScreen extends StatefulWidget {
   // const OrderDeliveredDetailsScreen({Key? key}) : super(key: key);
@@ -158,20 +159,30 @@ class _OrderDeliveredDetailsScreenState
                     ),
                     buildDivider(context, height),
                     SizedBox(
-                      height: height * 0.01,
+                      height: height * 0.04,
                     ),
                     buildListTile(
-                      context,
-                      orderItemList[0]['restaurant_address'],
-                      'Restaurant Address',
+                        ctx: context,
+                        address: orderItemList[0]['restaurant_address'],
+                        addressType: 'Restaurant Address',
+                        onPressed: () {
+                          MapUtils.openMap(
+                              double.parse(orderItemList[0]['lat']),
+                              double.parse(orderItemList[0]['lng']));
+                        }),
+                    const SizedBox(
+                      height: 15,
                     ),
                     buildListTile(
-                      context,
-                      '${orderItemList[0]['area']} ${orderItemList[0]['city']} ${orderItemList[0]['state']} ${orderItemList[0]['pincode']}',
-                      'Delivery Address',
-                    ),
+                        ctx: context,
+                        address:
+                            '${orderItemList[0]['area']} ${orderItemList[0]['city']} ${orderItemList[0]['state']} ${orderItemList[0]['pincode']}',
+                        addressType: 'Delivery Address',
+                        onPressed: () {
+                          MapUtils.openMap(22.623382, 88.443866);
+                        }),
                     SizedBox(
-                      height: height * 0.02,
+                      height: height * 0.04,
                     ),
                     buildDivider(context, height),
                     SizedBox(
@@ -228,21 +239,37 @@ class _OrderDeliveredDetailsScreenState
     );
   }
 
-  Widget buildListTile(ctx, address, addressType) {
+  Widget buildListTile({ctx, address, addressType, onPressed}) {
     return ListTile(
-      leading: Text(
-        addressType,
-        style: const TextStyle(
-          color: Colors.white,
-        ),
-      ),
-      trailing: Expanded(
-        child: Container(
-          width: 200.0,
-          child: Text(
-            address,
-            style: const TextStyle(color: Colors.white),
+      leading: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            addressType,
+            style: const TextStyle(
+              color: Colors.white38,
+            ),
           ),
+          SizedBox(
+            height: 5,
+          ),
+          Container(
+            width: 300,
+            child: Text(
+              address,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          )
+        ],
+      ),
+      trailing: IconButton(
+        onPressed: onPressed,
+        icon: Icon(
+          Icons.location_on,
+          color: Theme.of(ctx).colorScheme.secondary,
         ),
       ),
     );
