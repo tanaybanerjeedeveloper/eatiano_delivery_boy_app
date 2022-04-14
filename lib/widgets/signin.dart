@@ -196,7 +196,7 @@ class SignInFormState extends State<SignInForm> {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       // localStorage.setString('token', json.encode(body['access_token']));
       localStorage.setString('token', body['access_token']);
-      print('status: ${body['status']}');
+      //print('status: ${body['status']}');
       if (body['status'] == 'Approved') {
         Navigator.of(context).pushReplacementNamed(BottomNavigation.id);
       } else {

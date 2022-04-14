@@ -14,6 +14,8 @@ import './model/network_utils/authentication.dart';
 import './model/order/order_provider.dart';
 import './utils/user_shared_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import './services/networking_service.dart';
+import './screens/profile_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,12 +41,14 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     _checkIfLoggedIn();
+    //_checkIfApproved();
     super.initState();
   }
 
   void _checkIfLoggedIn() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var token = localStorage.getString('token');
+    print('token ');
     print(token);
     if (token != null) {
       setState(() {
@@ -52,6 +56,23 @@ class _MyAppState extends State<MyApp> {
       });
     }
   }
+
+  // Future<void> _checkIfApproved() async {
+  //   print('object');
+  //   SharedPreferences statusPreference = await SharedPreferences.getInstance();
+  //   print('2');
+  //   var response = await networkingService.getData();
+  //   print('response-is-approved: $response');
+  //   // print('response: ${response['data'][0]['status']}');
+  //   Future.delayed(const Duration(milliseconds: 2000)).then((_) {
+  //     setState(() {
+  //       isApproved = response['data'][0]['status'];
+  //       isLoading = false;
+  //     });
+  //   });
+  //   // isApproved = response['data'][0]['status'];
+  //   // statusPreference.setString('statusData', isApproved);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -79,8 +100,16 @@ class _MyAppState extends State<MyApp> {
                   ),
                 ),
           ),
+          // home: isLoading
+          //     ? const Center(
+          //         child: CircularProgressIndicator(),
+          //       )
+          //     : (isApproved == 'Approved' && isAuth)
+          //         ? BottomNavigation()
+          //         : (isApproved != 'Approved' && isAuth)
+          //             ? ProfileScreen()
+          //             : LogIn(),
           home: isAuth ? BottomNavigation() : LogIn(),
-          //initialRoute: isAuth ? BottomNavigation.id : LogIn.id,
           routes: {
             NotificationsScreen.id: (context) => NotificationsScreen(),
             // OrderDeliveredDetailsScreen.id: (context) =>

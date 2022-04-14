@@ -7,6 +7,7 @@ class NetworkingService {
   String url;
 
   NetworkingService(this.url);
+
   Future<dynamic> getData() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var response = await http.get(Uri.parse(url), headers: {
